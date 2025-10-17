@@ -1,30 +1,29 @@
-import { generateObject } from "ai";
-import { google } from "@ai-sdk/google";
-import z from "zod";
-import { Chat } from "./Chat";
+import { Chat } from "@/components/chat"
+import { Sprout } from "lucide-react"
+import { MeteorsBackground } from "@/components/meteors-background"
 
-export default async function Home() {
-  const {object} = await generateObject({
-    model: google('models/gemini-2.0-flash-lite'),
-    system: "Eres un especialista agrícola y agrónomo experto. Tu función es asesorar y orientar a los agricultores, campesinos y productores rurales sobre el manejo, cultivo y comercialización de distintos tipos de semillas, cultivos y suelos.",
-    prompt: "Genera una receta de una limonada",
-    schema: z.object({
-      receta: z.object({
-        nombre: z.string(),
-        ingredientes: z.array(z.string()),
-        pasos: z.array(z.string()),
-      }),
-
-    }),
-    
-  });
+export default function Home() {
   return (
-    <main className="min-h-screen p-8 md:p-20 flex flex-col gap-8 items-center justify-center">
-      <h1 className="text-4xl font-bold text-center">Raxibot</h1>
-      <h3 className="text-xl text-center"></h3>
-      {/*<p>{JSON.stringify(object?.receta)}</p> */}
-      <Chat />
+    <main className="relative min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 overflow-hidden">
+      <MeteorsBackground />
+      <div className="relative z-10 container mx-auto px-4 py-4 md:py-6">
+        <div className="flex flex-col items-center gap-4 mb-4">
+          <div className="flex items-center gap-3">
+            <div className="p-3 bg-gradient-to-br from-emerald-500 to-green-600 rounded-2xl shadow-lg">
+              <Sprout className="w-8 h-8 text-white" />
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-emerald-400 to-green-400 bg-clip-text text-transparent">
+              Raxibot
+            </h1>
+          </div>
+          <p className="text-center text-gray-400 max-w-2xl text-sm leading-normal">
+            Tu asistente agrícola inteligente. Pregúntame sobre cultivos, semillas, suelos y mejores prácticas
+            agrícolas.
+          </p>
+        </div>
+
+        <Chat />
+      </div>
     </main>
-      
-  );
+  )
 }
